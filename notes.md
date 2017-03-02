@@ -22,11 +22,24 @@ UI with Angular o something easy to deploy (maybe play?)
 
 - Single node cluster
 
+How to dockerize a platform?
+
+Turn a Domain into Container Components
+
+Distribute them, show Docker Compose benefits and limits
+
 - Distribute components
+
+Scale Components, move to Kubernetes
+
+Node Manager as orchestrator
 
 - Dynamic clusters
 
+Move to Dynamic Cluster: normal configuration, scenarios with failover,
 
 References:
 
 http://blog.eisele.net/2015/07/weblogic-server-1213-on-kubernetes.html
+
+https://blogs.oracle.com/imc/entry/weblogic_12c_dynamic_clusters_power

@@ -1,0 +1,8 @@
+version: '2'
+services:
+  admin_server:
+    image: jeqo/wls
+    volumes:
+      - ./domain:/u01/oracle/user_projects/domains/base_domain
+    ports:
+      - 8001:8001

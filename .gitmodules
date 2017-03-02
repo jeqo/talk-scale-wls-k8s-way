@@ -1,0 +1,3 @@
+[submodule "docker-images"]
+	path = docker-images
+	url = git@github.com:sysco-middleware/docker-images
