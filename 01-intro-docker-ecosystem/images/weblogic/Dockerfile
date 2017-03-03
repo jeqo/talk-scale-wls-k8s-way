@@ -49,13 +49,13 @@ ENV FMW_PKG=fmw_12.2.1.2.0_wls_quick_Disk1_1of1.zip \
     PRODUCTION_MODE=dev \
     DOMAIN_NAME="${DOMAIN_NAME:-base_domain}" \
     DOMAIN_HOME=/u01/oracle/user_projects/domains/${DOMAIN_NAME:-base_domain} \
-    ADMIN_PORT="${ADMIN_PORT:-8001}" \
+    ADMIN_PORT="${ADMIN_PORT:-7001}" \
     PATH=$PATH:/usr/java/default/bin:/u01/oracle/oracle_common/common/bin:/u01/oracle/wlserver/common/bin
 
 # Copy packages
 # -------------
 COPY $FMW_PKG install.file oraInst.loc /u01/
-COPY container-scripts/createAndStartEmptyDomain.sh container-scripts/create-wls-domain.py /u01/oracle/
+COPY container-scripts/* ${ORACLE_HOME}/
 
 # Setup filesystem and oracle user
 # Install and configure Oracle JDK
@@ -66,14 +66,18 @@ RUN chmod a+xr /u01 && \
     useradd -b /u01 -M -s /bin/bash oracle && \
     chown oracle:oracle -R /u01 && \
     echo oracle:oracle | chpasswd && \
-    yum -y install util-linux && yum clean all && \
+    # yum -y install  util-linux && yum clean all && \
     cd /u01 && $JAVA_HOME/bin/jar xf /u01/$FMW_PKG && cd - && \
     su -c "$JAVA_HOME/bin/java -jar /u01/$FMW_JAR -silent -responseFile /u01/install.file -invPtrLoc /u01/oraInst.loc -jreLoc $JAVA_HOME -ignoreSysPrereqs -force -novalidation ORACLE_HOME=$ORACLE_HOME INSTALL_TYPE=\"WebLogic Server\"" - oracle && \
     rm /u01/$FMW_JAR /u01/$FMW_PKG /u01/oraInst.loc /u01/install.file
 
 WORKDIR ${ORACLE_HOME}
 
-VOLUME ${DOMAIN_HOME}
+RUN sh createAndStartEmptyDomain.sh
+
+COPY sample.war ${DOMAIN_HOME}/autodeploy/
+
+VOLUME ${DOMAIN_HOME}/servers/AdminServer/logs
 
 # Define default command to start script.
-CMD ["/u01/oracle/createAndStartEmptyDomain.sh"]
+CMD ${DOMAIN_HOME}/startWebLogic.sh

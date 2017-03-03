@@ -1,0 +1,14 @@
+version: '2'
+services:
+  web:
+    build: web
+    ports:
+      - 8888:80
+    links:
+      - app
+  app:
+    image: jeqo/weblogic-domain:01
+    ports:
+      - 7001:7001
+    volumes:
+    - ./logs:/u01/oracle/user_projects/domains/base_domain/servers/AdminServer/logs
