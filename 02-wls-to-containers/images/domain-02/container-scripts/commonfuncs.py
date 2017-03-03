@@ -23,4 +23,4 @@ def saveActivate():
     activate(block="true")
 
 def connectToAdmin():
-    connect(url='t3://' + admin_host + ':' + admin_port, adminServerName='AdminServer')
+    connect(admin_username, admin_password, url='t3://' + admin_host + ':' + admin_port, adminServerName='AdminServer')

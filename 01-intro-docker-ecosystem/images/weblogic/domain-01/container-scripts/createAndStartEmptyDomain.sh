@@ -4,7 +4,7 @@
 #
 
 # Auto generate Oracle WebLogic Server admin password
-ADMIN_PASSWORD=$(cat date| md5sum | fold -w 8 | head -n 1)
+# ADMIN_PASSWORD=$(cat date| md5sum | fold -w 8 | head -n 1)
 
 echo ""
 echo "    Oracle WebLogic Server Auto Generated Empty Domain:"

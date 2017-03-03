@@ -15,13 +15,13 @@ fi
 
 # Start Node Manager
 echo "Starting NodeManager in background..."
-nohup startNodeManager.sh > log.nm 2>&1 &
+nohup ${DOMAIN_HOME}/bin/startNodeManager.sh > log.nm 2>&1 &
 echo "NodeManager started."
 
 # Add this 'Machine' and 'ManagedServer' to the AdminServer only if 1st execution
 if [ $ADD_SERVER -eq 1 ]; then
-  wlst /u01/oracle/add-machine.py
-  wlst /u01/oracle/add-server.py
+  ${ORACLE_HOME}/wlst /u01/oracle/add-machine.py
+  ${ORACLE_HOME}/wlst /u01/oracle/add-server.py
 fi
 
 # print log

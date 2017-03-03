@@ -1,5 +1,5 @@
 #!/bin/bash
-# 
+#
 # This script will wait until Admin Server is available.
 # There is no timeout!
 #
@@ -11,6 +11,8 @@ do
   if [[ $available -eq 0 ]]; then
     echo "WebLogic Admin Server is now available. Proceeding..."
     break
+  else
+    echo "Waiting for WebLogic Admin Server to become available..."
   fi
-  sleep 1
+  sleep 5
 done

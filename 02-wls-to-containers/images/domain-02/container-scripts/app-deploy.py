@@ -8,7 +8,7 @@
 #
 import os
 
-# Deployment Information 
+# Deployment Information
 domainhome = os.environ.get('DOMAIN_HOME', '/u01/oracle/user_projects/domains/base_domain')
 appname    = os.environ.get('APP_NAME', 'sample')
 apppkg     = os.environ.get('APP_PKG_FILE', 'sample.war')
@@ -25,10 +25,10 @@ cd('/')
 app = create(appname, 'AppDeployment')
 app.setSourcePath(appdir + '/' + apppkg)
 app.setStagingMode('nostage')
- 
+
 # Assign application to AdminServer
 # =================================
-assign('AppDeployment', appname, 'Target', 'AdminServer')
+# assign('AppDeployment', appname, 'Target', 'AdminServer')
 assign('AppDeployment', appname, 'Target', cluster_name)
 
 # Update Domain, Close It, Exit
