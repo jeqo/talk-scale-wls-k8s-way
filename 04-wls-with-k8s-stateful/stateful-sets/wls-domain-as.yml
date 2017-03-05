@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: wls-domain-as
+spec:
+  serviceName: "wls-domain-as"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wls-domain-as
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: wls-domain-as
+        image: jeqo/weblogic-domain:02
+        ports:
+        - containerPort: 7001
+          name: admin-port
+        volumeMounts:
+        - name: logs
+          mountPath: /u01/oracle/user_projects/domains/base_domain/servers/AdminServer/logs
+  volumeClaimTemplates:
+  - metadata:
+      name: logs
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi

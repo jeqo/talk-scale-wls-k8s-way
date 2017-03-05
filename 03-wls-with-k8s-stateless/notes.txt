@@ -1,4 +1,10 @@
 kubectl run wls-domain-01 --image=jeqo/weblogic-domain:01 --requests=cpu=200m
 kubectl expose deployment wls-domain-01 --port=7001 --type=NodePort
 kubectl autoscale deployment wls-domain-01 --min=1 --max=5 --cpu-percent=20
-
+# wait to return to 1 replica
+kubectl scale deployment wls-domain-01 --replicas=5
+kubectl edit deployment wls-domain-01
+# set version *-v2
+kubectl apply -f deployments/health-check.yml
+# add readiness check
+watch curl vm-k8s:31525/sample/ # change port

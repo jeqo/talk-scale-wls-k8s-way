@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: wls-domain-01
+  name: wls-domain-01
+  namespace: default
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      run: wls-domain-01
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: wls-domain-01
+    spec:
+      containers:
+      - image: jeqo/weblogic-domain:01-v2
+        imagePullPolicy: IfNotPresent
+        name: wls-domain-01
+        resources:
+          requests:
+            cpu: 200m
+        readinessProbe:
+            httpGet:
+                path: /sample/
+                port: 7001
+            initialDelaySeconds: 5
+            periodSeconds: 5
+        terminationMessagePath: /dev/termination-log
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
