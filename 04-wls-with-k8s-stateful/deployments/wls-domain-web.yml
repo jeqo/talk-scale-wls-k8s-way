@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: wls-domain-web
+  name: wls-domain-web
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: wls-domain-web
+  template:
+    metadata:
+      labels:
+        app: wls-domain-web
+    spec:
+      containers:
+      - image: nginx:1.10
+        name: wls-domain-web
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/nginx
+      volumes:
+       - name: config-volume
+         configMap:
+           name: nginxconfigmap

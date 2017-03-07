@@ -22,7 +22,8 @@
 # echo "NodeManager started."
 
 # Add this 'Machine' and 'ManagedServer' to the AdminServer only if 1st execution
-if [ ! -d "/u01/oracle/user_projects/domains/$DOMAIN_NAME/servers/$HOSTNAME" ]; then
+if [ ! -f "/logs/$HOSTNAME.log" ]; then
+  ${ORACLE_HOME}/wlst /u01/oracle/add-machine.py
   ${ORACLE_HOME}/wlst /u01/oracle/add-server.py
   # cp /secrets/boot.properties /u01/oracle/user_projects/domains/base_domain/servers/$HOSTNAME/security/boot.properties
   mkdir -p /u01/oracle/user_projects/domains/$DOMAIN_NAME/servers/$HOSTNAME/security

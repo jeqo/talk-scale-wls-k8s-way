@@ -6,7 +6,7 @@ metadata:
     app: wls-domain-ms
 spec:
   ports:
-  - port: 7001
+  - port: 8001
     name: server-port
   type: NodePort
   selector:

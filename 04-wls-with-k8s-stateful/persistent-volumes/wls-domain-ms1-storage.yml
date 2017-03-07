@@ -1,7 +1,7 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: wls-domain-ms-vol
+  name: wls-domain-ms-vol1
   labels:
     type: local
     app: wls-domain-ms
