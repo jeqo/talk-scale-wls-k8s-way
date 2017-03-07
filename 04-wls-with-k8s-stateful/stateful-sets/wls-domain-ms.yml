@@ -1,0 +1,62 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: wls-domain-ms
+spec:
+  serviceName: "wls-domain-ms"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wls-domain-ms
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: wls-domain-nm
+        image: jeqo/weblogic-domain:02-v2
+        command: ["sh"]
+        args: ["/u01/oracle/createMachine.sh"]
+        env:
+        - name: ADMIN_HOST
+          value: wls-domain-as
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: wls-boot
+              key: password
+        ports:
+        - containerPort: 5556
+          name: nm-port
+      - name: wls-domain-ms
+        image: jeqo/weblogic-domain:02-v2
+        command: ["sh"]
+        args: ["/u01/oracle/createServer.sh"]
+        env:
+        - name: ADMIN_HOST
+          value: wls-domain-as
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: wls-boot
+              key: password
+        ports:
+        - containerPort: 7001
+          name: server-port
+        volumeMounts:
+        - name: logs
+          mountPath: "/logs"
+        - name: boot
+          mountPath: "/secrets/boot.properties"
+          readOnly: true
+      volumes:
+      - name: boot
+        secret:
+          secretName: wls-boot
+  volumeClaimTemplates:
+  - metadata:
+      name: logs
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi

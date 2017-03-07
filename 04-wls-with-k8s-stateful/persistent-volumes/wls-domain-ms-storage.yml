@@ -1,14 +1,14 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: wls-domain-as-vol
+  name: wls-domain-ms-vol
   labels:
     type: local
-    app: wls-domain-as
+    app: wls-domain-ms
 spec:
   capacity:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/tmp/data/wls-domain/as"
+    path: "/tmp/data/wls-domain/ms"
