@@ -8,6 +8,5 @@ spec:
   ports:
   - port: 8001
     name: server-port
-  type: NodePort
   selector:
     app: wls-domain-ms

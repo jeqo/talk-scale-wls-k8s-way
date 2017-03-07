@@ -20,14 +20,6 @@ spec:
         volumeMounts:
         - name: logs
           mountPath: /u01/oracle/user_projects/domains/base_domain/servers/AdminServer/logs
-      #  - name: boot
-      #    mountPath: /u01/oracle/user_projects/domains/base_domain/servers/AdminServer/security/boot.properties
-      #    readOnly: false
-      # volumes:
-      # - name: boot
-      #   secret: 
-      #     secretName: wls-boot
-
   volumeClaimTemplates:
   - metadata:
       name: logs

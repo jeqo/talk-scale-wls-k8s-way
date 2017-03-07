@@ -20,6 +20,7 @@ spec:
         name: wls-domain-web
         ports:
         - containerPort: 80
+          name: web
           protocol: TCP
         volumeMounts:
         - name: config-volume
