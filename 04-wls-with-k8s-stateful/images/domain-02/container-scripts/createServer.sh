@@ -26,10 +26,11 @@ if [ ! -f "/logs/$HOSTNAME.log" ]; then
   ${ORACLE_HOME}/wlst /u01/oracle/add-machine.py
   ${ORACLE_HOME}/wlst /u01/oracle/add-server.py
   # cp /secrets/boot.properties /u01/oracle/user_projects/domains/base_domain/servers/$HOSTNAME/security/boot.properties
-  mkdir -p /u01/oracle/user_projects/domains/$DOMAIN_NAME/servers/$HOSTNAME/security
-  echo "username=weblogic" > /u01/oracle/user_projects/domains/$DOMAIN_NAME/servers/$HOSTNAME/security/boot.properties
-  echo "password=$ADMIN_PASSWORD" >> /u01/oracle/user_projects/domains/$DOMAIN_NAME/servers/$HOSTNAME/security/boot.properties
 fi
+
+mkdir -p /u01/oracle/user_projects/domains/$DOMAIN_NAME/servers/$HOSTNAME/security
+echo "username=weblogic" > /u01/oracle/user_projects/domains/$DOMAIN_NAME/servers/$HOSTNAME/security/boot.properties
+echo "password=$ADMIN_PASSWORD" >> /u01/oracle/user_projects/domains/$DOMAIN_NAME/servers/$HOSTNAME/security/boot.properties
 
 # print log
 # tail -f /u01/oracle/user_projects/domains/$DOMAIN_NAME/servers/$HOSTNAME/logs/$HOSTNAME.out
